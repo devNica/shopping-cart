@@ -1,0 +1,27 @@
+<div class="row mt-5">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white font-weight-bold">
+                Sign Up
+            </div>
+            Validation Errors
+            <div class="card-body">
+                <form action="/user/signup" method="post">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name='email' placeholder="please insert your email"
+                            class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name='password' placeholder="please insert your password"
+                            class="form-control">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                    <button type='submit' class=" btn btn-success ml-auto">Sing Up</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
