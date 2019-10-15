@@ -1,0 +1,37 @@
+{{# each products }}
+
+<div class="row mt-5">
+    {{# each this }}
+    <div class="col-sm-6 col-md-4">
+        <div class="card">
+            <div class="card-header">
+                games available
+            </div>
+            <div class="card-body">
+                <img src={{ this.imagePath }} alt="" class="img-fluid">
+                <hr />
+                <h3>{{ this.title }}</h3>
+                <p class="descripcion">{{ this.description }}</p>
+                <div class="price">
+                    ${{ this.price }}
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2 offset-md-1">
+                        <a href="" class="btn btn-dark btn-lg pull-right" role="button">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    {{/each}}
+</div>
+
+
+{{/each}}
