@@ -73,6 +73,7 @@ router.post('/checkout', (req, res, next) => {
   var amount = (cart.totalPrice).toFixed(2);
 
   var stripe = require('stripe')("sk_test_CqR2iFUWoeFoQXdzlnHtEK8n00L8tmfkXR");
+
   stripe.charges.create({
     amount: amount * 100,
     currency: 'usd',
@@ -84,9 +85,24 @@ router.post('/checkout', (req, res, next) => {
       req.flash('error', err.message);
       return res.redirect('/checkout');
     }
-    req.flash('success', 'Successfuly bought product!');
-    req.session.cart = null;
-    res.redirect('/');
+
+    var order = new Order({
+      user: req.user,
+      cart: cart,
+      address: req.body.address,
+      name: req.body.name,
+      paymentId: charge.id
+    });
+
+    order.save((err, result) => {
+
+      req.flash('success', 'Successfuly bought product!');
+      req.session.cart = null;
+      res.redirect('/');
+
+
+    });
+
 
   });
 
