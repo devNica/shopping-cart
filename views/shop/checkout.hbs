@@ -1,12 +1,17 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
 
-        <div class="mt-4">
+        <div class="my-4">
             <h1>Checkout</h1>
             <h4>Your Total: ${{total}}</h4>
         </div>
+
+        <div id="charge-error" class="alert alert-danger d-none">
+
+        </div>
+
         <div class="mt-4">
-            <form action="/checkout" method="POST" id="checkout-form">
+            <form action="/checkout" method="post" id="checkout-form">
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
@@ -67,3 +72,6 @@
 
     </div>
 </div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="javascripts/checkout.js"></script>
