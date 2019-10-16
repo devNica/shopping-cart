@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 var Products = require('../models/Product');
 var Cart = require('../models/cart');
+var Order = require('../models/order');
 
 router.get('/', function (req, res, next) {
+
+  var successMsg = req.flash('success')[0];
+
   Products.find(function (err, docs) {
     var productChunks = [];
     var chunkSize = 3;
@@ -11,7 +15,7 @@ router.get('/', function (req, res, next) {
       productChunks.push(docs.slice(index, index + chunkSize));
     }
 
-    res.render('shop/index', { title: 'Shoping Cart', products: productChunks });
+    res.render('shop/index', { title: 'Shoping Cart', products: productChunks, successMsg, noMessages: !successMsg });
   });
 
 
@@ -53,7 +57,39 @@ router.get('/checkout', (req, res, next) => {
   }
   var cart = new Cart(req.session.cart);
   var total = parseFloat(cart.totalPrice).toFixed(2);
-  res.render('shop/checkout', { total });
+
+  var errMsg = req.flash('error')[0];
+
+  res.render('shop/checkout', { total, errMsg, noError: !errMsg });
+});
+
+router.post('/checkout', (req, res, next) => {
+
+  if (!req.session.cart) {
+    return res.redirect('/shoping-cart');
+  }
+  var cart = new Cart(req.session.cart);
+
+  var amount = (cart.totalPrice).toFixed(2);
+
+  var stripe = require('stripe')("sk_test_CqR2iFUWoeFoQXdzlnHtEK8n00L8tmfkXR");
+  stripe.charges.create({
+    amount: amount * 100,
+    currency: 'usd',
+    source: req.body.stripeToken,
+    description: "Test Charge Lucas A. Marsell",
+  }, (err, charge) => {
+    //asynchronusly called
+    if (err) {
+      req.flash('error', err.message);
+      return res.redirect('/checkout');
+    }
+    req.flash('success', 'Successfuly bought product!');
+    req.session.cart = null;
+    res.redirect('/');
+
+  });
+
 });
 
 module.exports = router;

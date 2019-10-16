@@ -6,8 +6,8 @@
             <h4>Your Total: ${{total}}</h4>
         </div>
 
-        <div id="charge-error" class="alert alert-danger d-none">
-
+        <div id="charge-error" class="alert alert-danger {{#if noError}}d-none{{/if}}">
+            {{errMsg}}
         </div>
 
         <div class="mt-4">
