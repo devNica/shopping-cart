@@ -1,1 +1,44 @@
-<h1>User Profile</h1>
+<div class="jumbotron mt-2">
+    <h1 class="display-4">Hello, User!</h1>
+    <p class="lead">In this section you can see all the orders you have made with your user session.</p>
+
+    <hr class="my-4">
+    <h5>Thanks for using our application!</h5>
+
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-8 offset-2">
+
+        {{#each orders}}
+        <div class="card mt-3 shadow">
+            <div class="card-header">
+                list of items in this order
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {{#each this.items }}
+                    <li class="list-group-item">
+
+                        <img src={{ this.item.imagePath }} alt="" class="img-fluid" style="width: 10%;">
+
+                        {{ this.item.title }} | {{ this.qty }} Units
+
+                        <span
+                            class="badge badge-pill badge-primary text-white font-weight-bold ml-auto">{{ this.price }}</span>
+
+                    </li>
+                    {{/each}}
+
+                </ul>
+            </div>
+            <div class="card-footer">
+                <strong>${{ this.cart.totalPrice }}</strong>
+            </div>
+
+        </div>
+        {{/each}}
+
+
+    </div>
+</div>
