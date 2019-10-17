@@ -21,8 +21,10 @@
                     <td class="text-center">{{ this.qty }}</td>
                     <td class="text-center">${{ this.price }}</td>
                     <td>
-                        <button class="btn btn-info btn-sm"><i class="fas fa-minus"></i></button>
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                        <a href="/reduce/{{ this.item._id }}" class="btn btn-info btn-sm"><i
+                                class="fas fa-minus"></i></a>
+                        <a href="/remove/{{ this.item._id }}" class="btn btn-danger btn-sm"><i
+                                class="fa fa-trash-o"></i></a>
                     </td>
                 </tr>
                 {{/each}}
